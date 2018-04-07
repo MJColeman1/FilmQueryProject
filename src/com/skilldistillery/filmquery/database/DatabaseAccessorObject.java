@@ -20,8 +20,9 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 	@Override
 	public Film getFilmById(int filmId) {
 		Film film = null;
-		String sql = "SELECT id, title, description, release_year, language_id, rental_duration, "
-				+ "rental_rate, length, replacement_cost, rating, special_features FROM film WHERE id = ?";
+		String sql = "SELECT f.id, f.title, f.description, f.release_year, f.language_id, f.rental_duration, f.rental_rate,"
+				+ " f.length, f.replacement_cost, f.rating, f.special_features, l.name FROM film f "
+				+ "join language l on l.id = f.language_id WHERE f.id = ?";
 		try {
 			Connection conn = DriverManager.getConnection(URL, user, pass);
 			PreparedStatement stmt = conn.prepareStatement(sql);
@@ -39,9 +40,10 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 				double replacementCost = rs.getDouble(9);
 				String rating = rs.getString(10);
 				String specialFeatures = rs.getString(11);
+				String language = rs.getString(12);
 				List<Actor> actorsByFilmId = getActorsByFilmId(filmId);
 				film = new Film(id, title, description, releaseYear, languageId, rentalDuration, rentalRate, length,
-						replacementCost, rating, specialFeatures);
+						replacementCost, rating, specialFeatures, language);
 				film.setActors(actorsByFilmId);
 			}
 			rs.close();
@@ -120,4 +122,47 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 		return actors;
 	}
 
+	@Override
+	public List<Film> getFilmByKeyword(String keyword) {
+		List<Film> films = new ArrayList<>();
+		String sql = "SELECT f.title, f.description, f.release_year, f.language_id, "
+				+ "f.rental_duration, f.rental_rate, f.length, f.replacement_cost, f.rating, "
+				+ "f.special_features, f.id, l.name from film f join language l on l.id = "
+				+ "f.language_id where title like ? or description like ?";
+		try {
+			Connection conn = DriverManager.getConnection(URL, user, pass);
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setString(1, "%" + keyword + "%");
+			stmt.setString(2, "%" + keyword + "%");
+			
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				String title = rs.getString(1);
+				String desc = rs.getString(2);
+				int releaseYear = rs.getInt(3);
+				int languageId = rs.getInt(4);
+				int rentalDuration = rs.getInt(5);
+				double rentalRate = rs.getDouble(6);
+				int length = rs.getInt(7);
+				double replacementCost = rs.getDouble(8);
+				String rating = rs.getString(9);
+				String features = rs.getString(10);
+				int id = rs.getInt(11);
+				String language = rs.getString(12);
+				Film film = new Film(id, title, desc, releaseYear, languageId, rentalDuration, rentalRate, length,
+						replacementCost, rating, features, language);
+				film.setActors(getActorsByFilmId(id));
+				films.add(film);
+			}
+			rs.close();
+			stmt.close();
+			conn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return films;
+	}
+		
 }
