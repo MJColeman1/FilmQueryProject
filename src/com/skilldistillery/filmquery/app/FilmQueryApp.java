@@ -49,7 +49,8 @@ public class FilmQueryApp {
 					continue;
 				} else {
 					Film film = db.getFilmById(choice2);
-					System.out.println("The title is " + film.getTitle());
+					System.out.println("The following film matched your ID search: ");
+					System.out.println("The film title is " + film.getTitle());
 					System.out.println("Description: " + film.getDescription());
 					System.out.println("The rating is " + film.getRating());
 					System.out.println("This film was released in " + film.getReleaseYear());
@@ -70,7 +71,8 @@ public class FilmQueryApp {
 				}
 				else {
 					for (Film film : films) {
-						System.out.println("The title is " + film.getTitle());
+						System.out.println("The following film matched your keyword search: ");
+						System.out.println("The film title is " + film.getTitle());
 						System.out.println("Description: " + film.getDescription());
 						System.out.println("The rating is " + film.getRating());
 						System.out.println("This film was released in " + film.getReleaseYear());

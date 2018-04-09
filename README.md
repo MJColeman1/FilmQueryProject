@@ -8,7 +8,7 @@ The objective of this project is to create an application that allows a user to 
 
 #### How To Run This Project
 
-Before playing the game, the user will have the rules of Blackjack explained to them. The user will then be prompted to enter their name, and the game will begin. Both the player and the dealer will each be dealt two cards, but the player will only be able to see one of the dealer's cards. The player's current cards will be displayed, along with the value of those cards, and the user will have the option to either HIT or STAY by selecting (1) or (2). From there, the user has to simply follow on-screen prompts to continue playing the game until either the user or dealer busts. At that point, the user will be asked if they would like to play again or quit by selecting (1) or (2).
+To run this project, the user is presented with an interactive menu. The user is given the choice to search the film database by a film ID number or search keyword. The film ID search will return results if the user's input matches a film ID number and the keyword search function will return results if the user's input matches either a film title or film description. If a match is found, details returned include the title and description of the film, rating, release year, language, and actors and actresses who performed in the film. If the user's query does not match anything in the database, the user is notified and the menu is displayed again to allow the user to continue searching. The user also has the option to exit the application any time the menu is presented by selecting option 3.
 
 #### Technologies Used
 
@@ -26,7 +26,7 @@ Before playing the game, the user will have the rules of Blackjack explained to 
 * Java Database Connectivity API
 * Querying MySQL Database for Application Functionality Using SQL Statements
 * SQL Queries - Joins
-* Using Prepared Statements to Avoid SQL Injection Vulnerabilities
+* Prepared Statements to Avoid SQL Injection Vulnerabilities
 * Interfaces
 * Static Initializer Blocks
 * Managing Dependencies Utilizing Maven
@@ -34,6 +34,4 @@ Before playing the game, the user will have the rules of Blackjack explained to 
 
 #### Lessons Learned
 
-Implementing exception handling via Try/Catch statements was difficult for me. Implementing these statements without any errors during runtime is something I struggle with as I wasn't able to implement these statements in all necessary aspects of my code. It also caused bugs in my program with statements that were printing to the console that shouldn't have been printed out at that point in the program. The lesson learned here is that I need more practice with exception handling. 
-
-Designing the class structure and figuring out how all the different classes communicate with each other is still very difficult for me. While building this program, the lesson I learned is that it helps to say things out loud in plain English i.e. "A dealer HAS A deck, a Game HAS A player and a dealer, a Deck HAS cards, a Card HAS A suit and rank, a Hand HAS cards", etc. This really helped me more clearly understand the concepts behind Object Oriented Programming and be able to code those concepts into a functional program, although I still need a lot more practice with it. 
+Utilizing Java to perform queries of a SQL database was a definite lesson learned. The code needed to perform this operation, which includes a driver manager, prepared statements, a URL to connect to the data source, the user name and password to login into the data source, and a result set to execute the query and iterate through various rows of data was all brand new to me. This was also very exciting to learn as you begin to understand how a full-stack application is developed and how the middleware and back end interact with each other. 
